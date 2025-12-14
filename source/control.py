@@ -12,7 +12,8 @@ class Control:
         pg.font.init()
         pg.display.set_caption("Conways PyGame of Life")
         self.clock = pg.time.Clock()
-        self.screen = pg.display.set_mode(c.INITIAL_SCREEN_DIMENSIONS, pg.RESIZABLE)
+        h = int(pg.display.Info().current_h * c.INIT_SIZE_OF_WINDOW) # Gets window height and then sets size according to it.
+        self.screen = pg.display.set_mode((h, h), pg.RESIZABLE)
 
         self.mouse_click: list[bool] = [False, False] # Left and Right
 

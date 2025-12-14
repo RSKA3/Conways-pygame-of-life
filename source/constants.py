@@ -23,7 +23,7 @@ INIT_SETTINGS = {
 }
 
 # Visuals
-INITIAL_SCREEN_DIMENSIONS = (1000, 1000) # pixels
+INIT_SIZE_OF_WINDOW = 0.8 # times the screen height
 
 # Sizes
 GRID_MULTIPLE = { "left" : 0.05, "top" : 0.05, "width": 0.8, "height": 0.8 }
