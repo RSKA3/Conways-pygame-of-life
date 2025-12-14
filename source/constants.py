@@ -6,7 +6,7 @@ CHANGE_DIMENSIONS_BY = 10 # how much to zoom in or out every click
 
 # Tick Speed
 TICK_SPEED = 60
-INITIAL_TICKS_PER_UPDATE = 6 
+INITIAL_TICKS_PER_UPDATE = 12
 MIN_TICKS_PER_UPDATE = 3  # twenty updates a second
 MAX_TICKS_PER_UPDATE = 60 # one update every second
 buttonsCanBePressedEveryTicks = 10
@@ -32,11 +32,12 @@ GRID_MULTIPLE = { "left" : 0.05, "top" : 0.05, "width": 0.8, "height": 0.8 }
 FILE_PATH = "assets"
 
 # Icon filepaths
-FORWARD_ICON = "forward.png"
-PAUSE_ICON   = "pause.png"
-PLAY_ICON    = "play.png"
+FORWARD_ICON  = "forward.png"
+PAUSE_ICON    = "pause.png"
+PLAY_ICON     = "play.png"
 ZOOM_IN_ICON  = "zoom-in.png"
 ZOOM_OUT_ICON = "zoom-out.png"
+LOGO_ICON     = "logo.png"
 
 # Font filepath
 FONT_NAME = "Minecraft.ttf"

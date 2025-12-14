@@ -29,11 +29,11 @@ class Grid:
     def _drawGrid(self, surface: pg.Surface, game: Game):
         squareWidth = surface.get_width() / game.get_grid_dimension()
         squareHeight = surface.get_height() / game.get_grid_dimension()
-
+        
         for x in range(game.get_grid_dimension()):
             for y in range(game.get_grid_dimension()):
                 rect = pg.Rect(squareWidth * x, squareHeight * y,
-                                   squareWidth, squareHeight)
+                               squareWidth, squareHeight)
                 pg.draw.rect(surface, "white", rect, 1)
 
     def click(self, pos: tuple[int, int], buttons: list[bool], game: Game, settings: dict[str, int]):

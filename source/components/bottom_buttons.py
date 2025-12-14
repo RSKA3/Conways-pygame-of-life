@@ -21,7 +21,7 @@ class Bottom_buttons:
         self.lastPressedPause   = 0
         self.lastPressedForward = 0
 
-        self.sliderDotPos = -1
+        self.sliderDotPos = 0.5 # the middle of the slider
 
 
     def draw(self, surface: pg.Surface, settings: dict):
@@ -49,16 +49,12 @@ class Bottom_buttons:
         surface.blit(forward, (self.forward_button_rect.left, self.forward_button_rect.top))
 
         # Slider
-        # There is a discreptancy between where we draw the line and where it can be clicked.
-        # To solve this we need to place the slider in the middle of the rect
+        self.sliderDotPos = (settings[c.TICKS_PER_UPDATE] - c.MIN_TICKS_PER_UPDATE) / (c.MAX_TICKS_PER_UPDATE  - c.MIN_TICKS_PER_UPDATE)
         self.slider_rect = pg.Rect(surfaceWidth * 0.5, surfaceHeight * 0.1, # this is where the top is
                                       surfaceWidth * 0.4, surfaceHeight * 0.8)
         pg.draw.rect(surface, "white", (self.slider_rect.left, self.slider_rect.centery, self.slider_rect.width, 2))
 
-        if self.sliderDotPos == -1:
-            self.sliderDotPos = self.slider_rect.centerx
-
-        pg.draw.circle(surface, "black", (self.sliderDotPos, self.slider_rect.centery), 5)
+        pg.draw.circle(surface, "black", (self.slider_rect.left + self.slider_rect.width * self.sliderDotPos, self.slider_rect.centery), 5)
 
         pg.draw.rect(surface, "white", surface.get_rect(), 1) # Add border to box
 
@@ -70,9 +66,9 @@ class Bottom_buttons:
 
         elif self.forward_button_rect.collidepoint(pos) and settings[c.PAUSED] and settings[c.TICK] - self.lastPressedForward >= c.buttonsCanBePressedEveryTicks: # no point in being able to forward wile game running
             self.lastPressedForward = settings[c.TICK]
-            game.update()
 
         elif self.slider_rect.collidepoint(pos):
-            self.sliderDotPos = pos[0]
-            settings[c.TICKS_PER_UPDATE] = c.MAX_TICKS_PER_UPDATE - int(((self.sliderDotPos - self.slider_rect.left) / self.slider_rect.width) * c.MAX_TICKS_PER_UPDATE) # we want left to be 10 and right to be 1
+            slider_pos = (pos[0] - self.slider_rect.left) / self.slider_rect.width
+            settings[c.TICKS_PER_UPDATE] = round(c.MIN_TICKS_PER_UPDATE + (c.MAX_TICKS_PER_UPDATE - c.MIN_TICKS_PER_UPDATE) * slider_pos) # we want left to be 10 and right to be 1
+        
         return settings

@@ -1,11 +1,15 @@
 import pygame as pg
+import time
 
 from . import constants as c
 from .components.main import Main
 from . import game
+from .utils import get_image
 
 class Control:
     def __init__(self) -> None:
+        logo = get_image(c.FILE_PATH, c.LOGO_ICON)
+        pg.display.set_icon(logo)
         self.game = game.Game(c.INITIAL_GRID_DIMENSION)
         self.main = Main()
 
@@ -53,11 +57,11 @@ class Control:
     def update(self):
         if True in self.mouse_click: # if either button is pressed
             self.settings = self.main.click(pg.mouse.get_pos(), self.mouse_click, self.game, self.settings)
-
+        
         self.main.draw(self.screen, self.game, self.settings)
 
         # check if need to be updated
-        if not self.settings[c.PAUSED] and self.ticks_since_update >= self.ticks_per_update:
+        if not self.settings[c.PAUSED] and self.ticks_since_update >= self.settings[c.TICKS_PER_UPDATE]:
             self.game.update()
             self.ticks_since_update = 0
         else:
