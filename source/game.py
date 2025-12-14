@@ -1,4 +1,38 @@
-import constants
+import pygame as pg
+
+from . import constants as c
+
+class Game:
+    def __init__(self, gridDimension: int):
+        self.grid = Grid(gridDimension)
+
+        self.gameOver   = False
+        self.round      = 0
+
+    def isOver(self):
+        return self.gameOver
+    
+    def update(self):
+        self.round += 1
+        self.grid.updateGrid()
+
+
+    # related to Grid
+    def getAliveCells(self):
+        return self.grid.aliveCells
+
+    def removeCell(self, cell: tuple[int, int]) -> None:
+        self.grid.removeCell(cell)
+
+    def addCell(self, cell: tuple[int, int]) -> None:
+        self.grid.addCell(cell)
+
+    def changeDimensions(self, amount: int):
+        self.grid.updateGridDimension(amount)
+
+    def get_grid_dimension(self):
+        return self.grid.gridDimension
+
 
 class Grid:
     def __init__(self, gridDimension: int, initial_cells: list[tuple[int, int]] = None):
@@ -58,7 +92,6 @@ class Grid:
 
     def isCellInBounds(self, cell: tuple[int, int]) -> bool:
         x, y = cell
-        print(x, y, self.gridDimension)
         return 0 <= x and x < self.gridDimension and 0 <= y and y < self.gridDimension
 
     # setters & getters
@@ -87,5 +120,5 @@ class Grid:
     
     def updateGridDimension(self, amount: int):
         newDimension = self.gridDimension + amount
-        if newDimension >= constants.minGridDimension and newDimension <= constants.maxGridDimension:
+        if newDimension >= c.MIN_GRID_DIMENSION and newDimension <= c.MAX_GRID_DIMENSION:
             self.gridDimension = newDimension
