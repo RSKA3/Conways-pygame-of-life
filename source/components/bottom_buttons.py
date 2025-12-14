@@ -66,6 +66,7 @@ class Bottom_buttons:
 
         elif self.forward_button_rect.collidepoint(pos) and settings[c.PAUSED] and settings[c.TICK] - self.lastPressedForward >= c.buttonsCanBePressedEveryTicks: # no point in being able to forward wile game running
             self.lastPressedForward = settings[c.TICK]
+            game.update()
 
         elif self.slider_rect.collidepoint(pos):
             slider_pos = (pos[0] - self.slider_rect.left) / self.slider_rect.width
